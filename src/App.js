@@ -8,30 +8,19 @@ class App extends Component {
     super(props)
 
     this.state = {
-      todos: [
-        {
-          id: 3,
-          text: 'Learn about Regular Expressions',
-          complete: false
-        },
-        {
-          id: 4,
-          text: 'Learn about Antidisestablishmentarianism',
-          complete: false
-        }
-      ]
+      todos: []
     }
   }
 
-  // componentDidMount = () => {
-  //   axios
-  //     .get('https://one-list-api.herokuapp.com/items?access_token=axis-tolkien')
-  //     .then(response => {
-  //       this.setState({
-  //         todos: response.data
-  //       })
-  //     })
-  // }
+  componentDidMount = () => {
+    axios
+      .get('https://one-list-api.herokuapp.com/items?access_token=axis-tolkien')
+      .then(response => {
+        this.setState({
+          todos: response.data
+        })
+      })
+  }
 
   taskIndex = id => {
     return this.state.todos.findIndex(obj => {
