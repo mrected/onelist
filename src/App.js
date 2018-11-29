@@ -49,11 +49,16 @@ class App extends Component {
     event.preventDefault()
     let todoList = this.state.todos
     let id = event.target.dataset.id
-    let indexToDelete = this.taskIndex(id)
-    todoList.splice(indexToDelete, indexToDelete + 1)
+    // let indexToDelete = this.taskIndex(id)
+    // todoList.splice(indexToDelete, indexToDelete + 1)
+    axios.delete(
+      `https://one-list-api.herokuapp.com/items/${id}?access_token=axis-tolkien`
+    )
     this.setState({
       todos: todoList
     })
+    this.componentDidMount()
+
     // console.log(todoList)
   }
 
@@ -62,15 +67,24 @@ class App extends Component {
     let newList = this.state.todos
     let title = event.target.elements['taskInput'].value
     let newId = newList[newList.length - 1].id + 1
-    newList.push({
-      id: newId,
-      text: title,
-      complete: false
-    })
+    axios.post(
+      'https://one-list-api.herokuapp.com/items?access_token=axis-tolkien',
+      {
+        id: newId,
+        text: title,
+        complete: false
+      }
+    )
+    // newList.push({
+    //   id: newId,
+    //   text: title,
+    //   complete: false
+    // })
     event.target.elements['taskInput'].value = ''
     this.setState({
       todos: newList
     })
+    this.componentDidMount()
   }
 
   render() {
